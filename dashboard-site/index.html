@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evolution and determinants of Urban Thermal Signals in the Nordics</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=20261113-9">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo-panel">
+        <img class="uts-logo" src="assets/uts-path-logo.png" alt="UTS-PATH">
+        <img class="partner-logos" src="assets/pulse-eo4nbs.png" alt="PULSE and EO4NBS">
+      </div>
+    </div>
+    <div class="controls view-controls">
+      <label for="view-select">View</label>
+      <select id="view-select">
+        <option value="weather">Netatmo / weather stations</option>
+        <option value="nbs">NbS</option>
+        <option value="both">Netatmo + NbS</option>
+      </select>
+      <label for="city-select">City / FUA</label>
+      <select id="city-select"><option>Loading cities…</option></select>
+      <button id="study-region" type="button">Study region</button>
+    <div id="weather-controls" class="controls">
+      <label for="temperature-date">Map date</label>
+      <input id="temperature-date" type="date">
+      <label for="observation-time">Map time</label>
+      <select id="observation-time">
+        <option value="">Daily mean</option>
+        <option value="01:00">01:00</option>
+        <option value="04:00">04:00</option>
+        <option value="07:00">07:00</option>
+        <option value="10:00">10:00</option>
+        <option value="13:00">13:00</option>
+        <option value="16:00">16:00</option>
+        <option value="19:00">19:00</option>
+        <option value="22:00">22:00</option>
+      </select>
+      <span class="control-label">Balloon color</span>
+      <div id="balloon-metric-tabs" class="metric-tabs" role="tablist" aria-label="Balloon color metric">
+        <button type="button" role="tab" aria-selected="true" class="active" data-balloon-metric="temperature">Temperature</button>
+        <button type="button" role="tab" aria-selected="false" data-balloon-metric="humidity">Humidity</button>
+        <button type="button" role="tab" aria-selected="false" data-balloon-metric="pressure">Pressure</button>
+      </div>
+      <button id="latest-date" type="button">Latest</button>
+      <button id="refresh" type="button">Refresh data</button>
+    </div>
+    </div>
+  </header>
+  <main id="weather-view">
+    <section id="map" aria-label="Study-region map">
+      <div class="map-key">balloons: Netatmo (including FUA) · squares: meteorological · large triangles: ECAD · dashed boundary: FUA</div>
+    </section>
+    <aside id="details">
+      <p id="snapshot-note" class="quiet" hidden>Static snapshot exported 2026-11-25. Daily summaries only; map-time selection and live refresh are unavailable.</p>
+      <section id="nbs-options" hidden>
+        <h2>NbS</h2>
+        <fieldset><legend>OpenStreetMap</legend><div id="nbs-osm-categories"></div>
+          <label class="nbs-option" title="Based on all ClimateScan records, irrespective of visible categories. Proximity is not a confirmed match."><input id="osm-nearby" type="checkbox" checked><span class="nbs-swatch osm-nearby-swatch"></span><span>Highlight OSM within 150 m of ClimateScan (<span id="osm-nearby-count">0</span>)</span></label>
+        </fieldset>
+        <label class="nbs-option"><input id="climatescan-visible" type="checkbox" checked><span class="nbs-swatch climatescan-balloon-swatch"></span> ClimateScan</label>
+        <p class="quiet">Sources: <a href="https://climatescan.nl/" target="_blank" rel="noopener">ClimateScan</a> and <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>.</p>
+        <p id="nbs-message" role="status"></p>
+        <button id="nbs-reload" type="button">Reload NbS layers</button>
+      </section>
+      <section id="weather-details">
+      <div id="empty-state">
+        <h2>Select a station</h2>
+        <p>We scan Netatmo station data regularly and update the map every 3 hours.</p>
+      </div>
+      <div id="station-details" hidden>
+        <div class="station-heading">
+          <div>
+            <h2 id="station-title"></h2>
+            <p id="station-meta"></p>
+          </div>
+          <button id="close-details" type="button" aria-label="Close station details">×</button>
+        </div>
+        <div class="summary-grid" id="summary"></div>
+        <div id="weather-plots" class="weather-cards" hidden>
+          <article class="weather-card temperature-card">
+            <div class="weather-card-summary"><h3>Temperature</h3><strong id="temperature-latest">—</strong></div>
+            <div id="temperature-chart" class="weather-card-chart"></div>
+          </article>
+          <article class="weather-card humidity-card">
+            <div class="weather-card-summary"><h3>Humidity</h3><strong id="humidity-latest">—</strong></div>
+            <div id="humidity-chart" class="weather-card-chart"></div>
+          </article>
+          <article class="weather-card pressure-card">
+            <div class="weather-card-summary"><h3>Pressure</h3><strong id="pressure-latest">—</strong></div>
+            <div id="pressure-chart" class="weather-card-chart"></div>
+          </article>
+        </div>
+        <div class="chart"><h3>Daily mean temperature</h3><div id="daily-chart"></div></div>
+        <div class="chart"><h3>Monthly mean</h3><div id="monthly-chart"></div></div>
+      </div>
+      </section>
+    </aside>
+  </main>
+  <footer><span id="status">Loading map…</span><span class="copyright">(c) Sourangsu Chowdhury, CICERO</span></footer>
+  <script>window.DASHBOARD_STATIC_DATA = true;</script>
+  <script src="app.js?v=20261113-9"></script>
+</body>
+</html>

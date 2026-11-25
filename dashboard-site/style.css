@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1d2939;
+  background: #f6f8fb;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.static-snapshot label[for="observation-time"],
+.static-snapshot #observation-time,
+.static-snapshot #refresh { display: none !important; }
+body { margin: 0; min-width: 320px; }
+header {
+  min-height: 78px;
+  padding: 12px 18px;
+  background: #fff;
+  color: #102a43;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.logo-panel { width: 254px; height: 62px; padding: 2px 0; flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; gap: 4px; background: transparent; }
+.logo-panel img { display: block; object-fit: contain; }
+.logo-panel .uts-logo { width: 100px; max-height: 58px; }
+.logo-panel .partner-logos { width: 150px; max-height: 58px; }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: 1.25rem; }
+header p { margin-top: 4px; color: #486581; font-size: .88rem; }
+.controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.view-controls { justify-content: flex-end; }
+#nbs-options { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #d9e2ec; }
+#nbs-options fieldset { margin: 12px 0; border: 1px solid #d9e2ec; border-radius: 5px; }
+.nbs-option { display: flex; align-items: center; gap: 7px; margin: 7px 0; font-size: .88rem; }
+.nbs-swatch { width: 11px; height: 11px; flex-shrink: 0; border-radius: 2px; }
+.osm-nearby-swatch { border: 2px dashed #c026d3; }
+.nbs-category-text { position: relative; cursor: help; text-decoration: underline dotted #9fb3c8; text-underline-offset: 3px; }
+.nbs-category-tooltip { display: none; position: absolute; top: 100%; left: 0; width: 260px; max-width: 60vw; padding: 10px; background: #102a43; color: white; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,.25); font-size: .82rem; line-height: 1.5; z-index: 1100; pointer-events: none; }
+.nbs-category-text:hover .nbs-category-tooltip,
+.nbs-category-text:focus .nbs-category-tooltip { display: block; }
+.climatescan-balloon-icon { background: transparent; border: 0; }
+.climatescan-balloon, .climatescan-balloon-swatch { border-radius: 50% 50% 50% 0; background: rgba(139,90,43,.4); transform: rotate(-45deg); }
+.climatescan-balloon { display: block; width: 24px; height: 24px; margin-left: 1px; border: 2px solid rgba(112,66,27,.85); }
+.climatescan-balloon-swatch { border: 1px solid #70421b; }
+#nbs-message { color: #486581; margin: 12px 0; font-size: .85rem; }
+select, input, button { font: inherit; border-radius: 5px; padding: 7px 9px; border: 1px solid #9fb3c8; }
+button { cursor: pointer; background: #e5e7eb; color: #102a43; font-weight: 600; }
+button:hover { background: #f3f4f6; }
+.control-label { color: #102a43; font-size: .9rem; }
+.metric-tabs { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid #9fb3c8; border-radius: 6px; background: #d9e2ec; }
+.metric-tabs button { border: 0; border-radius: 4px; padding: 5px 8px; background: transparent; font-size: .82rem; }
+.metric-tabs button.active { background: white; color: #1d4ed8; box-shadow: 0 1px 3px rgba(16, 42, 67, .2); }
+main { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(360px, .85fr); height: calc(100vh - 114px); }
+#map { min-height: 480px; position: relative; }
+.map-key { position: absolute; z-index: 1000; left: 12px; bottom: 12px; max-width: calc(100% - 24px); padding: 8px 10px; color: #243b53; background: rgba(255, 255, 255, .94); border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,.3); font-size: .78rem; pointer-events: none; }
+#details { overflow-y: auto; background: white; border-left: 1px solid #d9e2ec; padding: 18px; }
+#empty-state { max-width: 340px; margin: 45% auto 0; color: #486581; }
+#empty-state h2 { color: #243b53; margin-bottom: 10px; }
+#empty-state p { line-height: 1.5; }
+.quiet { font-size: .88rem; margin-top: 16px; }
+.station-heading { display: flex; gap: 8px; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #d9e2ec; padding-bottom: 11px; }
+.station-heading h2 { font-size: 1.1rem; overflow-wrap: anywhere; }
+.station-heading p { color: #627d98; font-size: .85rem; margin-top: 4px; overflow-wrap: anywhere; }
+#close-details { border: 0; font-size: 1.5rem; padding: 0 6px; background: transparent; }
+.summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; }
+.metric { padding: 9px; background: #f0f4f8; border-radius: 5px; }
+.metric span { display: block; color: #627d98; font-size: .74rem; }
+.metric strong { display: block; margin-top: 3px; font-size: .96rem; }
+.chart { margin-top: 18px; }
+.chart h3 { font-size: .92rem; margin-bottom: 4px; }
+.chart > div { width: 100%; min-height: 230px; }
+.weather-cards { margin-top: 14px; border-top: 1px solid #e5e7eb; }
+.weather-card { display: grid; grid-template-columns: 108px minmax(0, 1fr); min-height: 122px; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #e5e7eb; }
+.weather-card-summary { min-width: 0; padding-left: 1px; }
+.weather-card-summary h3 { margin-bottom: 7px; color: #111827; font-size: .82rem; font-weight: 500; }
+.weather-card-summary strong { color: #3b73ff; font-size: 1.08rem; font-weight: 500; white-space: nowrap; }
+.weather-card-chart { width: 100%; height: 108px; min-width: 0; }
+.humidity-card .weather-card-summary strong { color: #3b73ff; }
+.pressure-card .weather-card-summary strong { color: #3b73ff; }
+.netatmo-balloon-icon { background: transparent; border: 0; }
+.netatmo-balloon { display: block; width: 17px; height: 17px; border: 2px solid #172554; border-radius: 50% 50% 50% 0; box-shadow: 0 1px 3px rgba(0,0,0,.4); transform: rotate(-45deg); }
+footer { height: 36px; padding: 9px 18px; color: #486581; background: #eaf2f8; font-size: .8rem; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.copyright { font-size: .72rem; white-space: nowrap; }
+.leaflet-tooltip { font-size: 12px; }
+.met-station-icon { background: transparent; border: 0; }
+.met-station-square { display: block; width: 20px; height: 20px; border: 2px solid #172554; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,.45); }
+.ecad-station-icon { background: transparent; border: 0; }
+.ecad-station-triangle { display: block; position: relative; width: 28px; height: 26px; background: #172554; clip-path: polygon(50% 0, 100% 100%, 0 100%); filter: drop-shadow(0 1px 2px rgba(0,0,0,.4)); }
+.ecad-station-triangle::after { content: ""; position: absolute; inset: 2px; background: var(--marker-color); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.station-chooser { display: grid; gap: 6px; min-width: 230px; }
+.station-chooser > span { color: #627d98; font-size: 12px; }
+.station-chooser button { display: flex; justify-content: space-between; align-items: center; gap: 10px; text-align: left; padding: 6px 8px; color: #102a43; background: #f0f4f8; border-color: #bcccdc; }
+.station-chooser button:hover { background: #d9eaf7; }
+.station-chooser small { color: #486581; white-space: nowrap; }
+.temperature-legend { background: rgba(255, 255, 255, .95); padding: 9px 10px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,.35); min-width: 170px; color: #243b53; }
+.temperature-legend .legend-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.temperature-legend .legend-gradient { height: 12px; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.temperature-legend .legend-labels { display: flex; justify-content: space-between; margin-top: 3px; font-size: 11px; }
+.temperature-legend .legend-count { margin-top: 5px; color: #627d98; font-size: 10px; }
+
+@media (max-width: 860px) {
+  header { align-items: flex-start; flex-direction: column; }
+  main { display: flex; flex-direction: column; height: auto; }
+  #map { height: 64vh; min-height: 430px; }
+  #details { min-height: 460px; border-left: 0; border-top: 1px solid #d9e2ec; }
+  #empty-state { margin: 36px auto; }
+  footer { height: auto; min-height: 36px; flex-wrap: wrap; }
+}
