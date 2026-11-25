@@ -3,6 +3,8 @@
 Public static snapshot of the UTSP city-weather and nature-based-solutions
 dashboard.
 
+[Open the live dashboard](https://sourangsuc.github.io/utspath-dashboard/).
+
 The Pages workflow publishes `dashboard-site/`. It includes daily station
 summaries, city boundaries, and available NbS layers. It does not include raw
 archives, the local SQLite index, or the Python API server. Map-time selection
